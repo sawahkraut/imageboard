@@ -2,16 +2,19 @@
 <html>
  <link rel="stylesheet" href="stylesheet.css">
 <head>
-    <title>PLACES + FACES</title>
+    <title>sawahkraut</title>
 </head>
 <body>
     <div id="main">
         <h1>{{name}}</h1>
-
-        <div class="card"></div>
-        <div class="image"></div>
-        <div class="imgtext"></div>
-
+<div class="container">
+        <div class="card" v-for="image in images">
+            <div class="image">
+                <img :src="image.url" alt="picture">
+            </div>
+            <div class="imgtext">{{image.title}} </div>
+        </div>
+</div>
         <form>
             <input
                 v-model="form.title"
@@ -33,10 +36,13 @@
             />
             <input
                 name="file"
+                id="file"
+                class="inputfile"
                 type="file"
                 accept="image/*"
                 @change="handleFileChange"
             />
+            <label for="file"><strong>Choose a file</strong></label>
             <button @click.prevent.default="uploadFile">upload</button>
         </form>
 
