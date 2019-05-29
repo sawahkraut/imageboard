@@ -1,58 +1,119 @@
 <!DOCTYPE html>
 <html>
- <link rel="stylesheet" href="stylesheet.css">
-<head>
-    <title>sawahkraut</title>
-</head>
-<body>
-    <div id="main">
-        <h1>{{name}}</h1>
-<div class="container">
-        <div class="card" v-for="image in images">
-            <div class="image">
-                <img :src="image.url" alt="picture">
-            </div>
-            <div class="imgtext">{{image.title}} </div>
+    <link rel="stylesheet" href="stylesheet.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed:300|Source+Code+Pro&display=swap"
+        rel="stylesheet"/>
+    <head>
+        <title>CURATE CORRECT</title>
+    </head>
+    <body>
+        <div id="main">
+            <header id="header">
+                CURATE CORRECT
+            </header>
+            <!-- <h1>{{name}}</h1> -->
+        <div id=nav>
+        <img id="image" src="images/logo.jpeg" alt="logo">
+        <h3>HOME&nbsp;</h3><h3>VISUAL&nbsp;</h3><h3>WORD&nbsp;</h3>
+        <h3>MIND&nbsp;</h3><h3>SOUND&nbsp;</h3><h3>ABOUT&nbsp;</h3>
         </div>
-</div>
-        <form>
-            <input
-                v-model="form.title"
-                name="title"
-                placeholder="title"
-                type="text"
-            />
-            <input
-                v-model="form.description"
-                name="description"
-                placeholder="image description"
-                type="text"
-            />
-            <input
-                v-model="form.username"
-                name="username"
-                placeholder="enter your username"
-                type="text"
-            />
-            <input
-                name="file"
-                id="file"
-                class="inputfile"
-                type="file"
-                accept="image/*"
-                @change="handleFileChange"
-            />
-            <label for="file"><strong>Choose a file</strong></label>
-            <button @click.prevent.default="uploadFile">upload</button>
-        </form>
 
+        <div class="customHr">.</div>
+        <div class= "emptyspace"></div>
+            <div class="customHr">.</div>
+
+            <div class="container">
+
+                <div
+                    class="card"
+                    v-for="image in images"
+                >
+                    <div class="image">
+                        <a :href="'#' + image.id">
+                        <img :src="image.url" alt="image" />
+                        </a>
+                    </div>
+
+                    <!-- <p>{{image.title}}</p> -->
+                    <div class="imgtext">{{image.title}}</div>
+                </div>
+                </div>
+                <div class="customHr">.</div>
+                <div class="bar">
+                <form>
+                    <input
+                        v-model="form.title"
+                        name="title"
+                        placeholder="title"
+                        type="text"
+                    />
+                    <input
+                        v-model="form.description"
+                        name="description"
+                        placeholder="image description"
+                        type="text"
+                    />
+                    <input
+                        v-model="form.username"
+                        name="username"
+                        placeholder="enter your username"
+                        type="text"
+                    />
+                    <input
+                        name="file"
+                        id="file"
+                        class="inputfile"
+                        type="file"
+                        accept="image/*"
+                        @change="handleFileChange"
+                    />
+                    <label for="file"><strong>Choose a file</strong></label>
+                    <button @click.prevent.default="uploadFile">upload</button>
+                </form>
+        </div>
+            <popup-model
+                :clickedimg="clickedimg"
+                v-if="clickedimg"
+                @close-popup="togglePopup(null)"
+            ></popup-model>
+        </div>
+        <!-- closes #main div -->
+        <!-- v-if="popupCondition" -->
+
+        <script id="popup-template" type="text/x-template">
+            <div class="popup-container" id="popup-container">
+                <div class="modal" @click="closePopup">
+                    <img class="popupimage" :src="modalContent.url">
+                    </div>
+                    <p>{{modalContent.title}}</p>
+                    <p>{{modalContent.description}}</p>
+                    <p id="uploadedby">uploaded by {{modalContent.username}} at {{modalContent.created_at}}</p>
+
+
+                <form>
+                     <input v-model="form.comment" name="comment" placeholder="comment" type="text"/>
+                     <input v-model="form.username" name="username" placeholder="username" type="text"/>
+                    <button @click.prevent.default="sendComment">submit</button>
+                </form>
+            <div>
+                <div class="comments">
+                    <ul>
+                    <li v-for="comment in modalComments">
+                        <h3 id="string">{{comment.comment}}</h3>
+                        <h4 id="string1">{{comment.username}} on {{comment.created_at}}</h4>
+                        <div class="customHr1">.</div>
+            </li>
+            </ul>
+            </div>
+            </div>
+        </div>
     </div>
+    <div class="modal-overlay" id="modal-overlay"></div>
+        </script>
 
-
-
-
-    <script src="/js/vue.js"></script>
-    <script src="/js/axios.min.js"></script>
-    <script src="/js/script.js"></script>
-</body>
+        <script src="/js/vue.js"></script>
+        <script src="/js/axios.min.js"></script>
+        <script src="/js/script.js"></script>
+    </body>
 </html>
