@@ -1,6 +1,6 @@
 # Imageboard
 
-Spiced Academy: Imageboard Project
+SPICED Academy: Imageboard Project
 
 I built an imageboard that includes an image upload function as well as a comment section. This is my first project using Vue.
 
